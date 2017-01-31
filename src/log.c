@@ -115,7 +115,7 @@ int libcommon_init_log(void){
 
 	g_libcommon_log.is_initialized = true;
 
-	write_log("Init log, log file -> %s\n", g_libcommon_log.log_path);
+	write_log("Init log, log file -> %s", g_libcommon_log.log_path);
 	return 0;
 }
 
