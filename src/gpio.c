@@ -40,10 +40,10 @@ static int _export_gpio( uint16_t number){
 	char data[DATA_LENGTH];
 
 	ret = snprintf(path, PATH_LENGTH, "%s/%s", GPIO_FOLDER, GPIO_EXPORT_BINARY);
-	common_die_snprintf(ret, PATH_LENGTH, -2, "Error: snprintf fail, can be trancated");
+	common_die_superior_or_equal(ret, PATH_LENGTH, -2, "Error: snprintf fail, can be trancated");
 
 	ret = snprintf(data, DATA_LENGTH, "%d", number);
-	common_die_snprintf(ret, PATH_LENGTH, -3, "Error: snprintf fail, can be trancated");
+	common_die_superior_or_equal(ret, PATH_LENGTH, -3, "Error: snprintf fail, can be trancated");
 
 	ret = _open_and_write( path, data);
 	common_die_zero(ret, -4, "Error: _open_and_write fail, return: %d");
@@ -57,10 +57,10 @@ static int _unexport_gpio( uint16_t number){
 	char data[DATA_LENGTH];
 
 	ret = snprintf(path, PATH_LENGTH, "%s/%s", GPIO_FOLDER, GPIO_UNEXPORT_BINARY);
-	common_die_snprintf(ret, PATH_LENGTH, -3, "Error: snprintf fail, can be trancated");
+	common_die_superior_or_equal(ret, PATH_LENGTH, -3, "Error: snprintf fail, can be trancated");
 
 	ret = snprintf(data, DATA_LENGTH, "%d", number);
-	common_die_snprintf(ret, PATH_LENGTH, -4, "Error: snprintf fail, can be trancated");
+	common_die_superior_or_equal(ret, PATH_LENGTH, -4, "Error: snprintf fail, can be trancated");
 
 	ret = _open_and_write( path, data);
 	common_die_zero(ret, -5, "Error: _open_and_write fail, return: %d");
@@ -74,16 +74,16 @@ static int _set_direction( uint16_t number, E_gpio_direction direction){
 	char data[DATA_LENGTH];
 
 	ret = snprintf(path, PATH_LENGTH, "%s/GPIO%d/direction", GPIO_FOLDER, number);
-	common_die_snprintf(ret, PATH_LENGTH, -5, "Error: snprintf fail, can be trancated");
+	common_die_superior_or_equal(ret, PATH_LENGTH, -5, "Error: snprintf fail, can be trancated");
 
 	switch( direction){
 		case E_GPIO_DIRECTION_IN:
 			ret = snprintf( data, DATA_LENGTH, "%s", "in");
-			common_die_snprintf(ret, 8, -6, "Error strncpy may have fail, output can be truncated");
+			common_die_superior_or_equal(ret, 8, -6, "Error strncpy may have fail, output can be truncated");
 			break;
 		case E_GPIO_DIRECTION_OUT:
 			ret = snprintf( data, DATA_LENGTH, "%s", "out");
-			common_die_snprintf(ret, 8, -7, "Error strncpy may have fail, output can be truncated");
+			common_die_superior_or_equal(ret, 8, -7, "Error strncpy may have fail, output can be truncated");
 			break;
 		default:
 			common_die( -8, "Error direction may be wrong, direction -> %d", direction);
@@ -113,7 +113,7 @@ int gpio_init(T_gpio * gpio, uint16_t number, E_gpio_direction direction, uint8_
 
 	//Set Value
 	ret = snprintf(path, PATH_LENGTH, "%s/GPIO%d/value", GPIO_FOLDER, number);
-	common_die_snprintf(ret, PATH_LENGTH, -4, "Error: snprintf fail, can be trancated");
+	common_die_superior_or_equal(ret, PATH_LENGTH, -4, "Error: snprintf fail, can be trancated");
 
 	gpio->fd = open( path, O_WRONLY);
 	common_die_zero( gpio->fd, -5, "Error: open %s fail, return: %d, errno: %d (%s)", path, gpio->fd, errno, strerror(errno));
