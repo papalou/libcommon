@@ -1,0 +1,6 @@
+#Change this 3 value according to your toolchain
+#Leave blank if you use the default gcc of your system
+
+ARM_TOOLCHAIN_PATH="../toolchain/"
+ARM_TOOLCHAIN_PRFIX="arm-buildroot-linux-uclibcgnueabihf-"
+SYSROOT="../buildroot/output/host/"

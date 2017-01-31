@@ -1,0 +1,9 @@
+#File extension to ignore
+*.a
+*.so
+*.o
+*.swp
+
+#Specific file to ignore
+cross_toolchain.config
+tags

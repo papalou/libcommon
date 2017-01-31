@@ -1,0 +1,74 @@
+#########################################
+##                                     ##
+##                 INTRO               ##
+##                                     ##
+#########################################
+
+A simple lib wo provide simple tool like error handling, log,...
+
+#########################################
+##                                     ##
+##                 BUILD               ##
+##                                     ##
+#########################################
+
+There is 2 way to use it, compil it with you gcc or use a cross gcc
+
++---------------------+
+|     For your pc:    |
++---------------------+
+
+1) make
+
++----------------------------------------------------+
+| For specific target (like arm) with cross compiler |
++----------------------------------------------------+
+
+1) cp cross_toolchain.defconfig cross_toolchain.config
+
+2) edit cross_toolchain.config with your toolchain parameter
+
+3) ./make_target.sh
+
+WARNING:
+
+If cross_toolchain.config didn't exist make_target.sh use parameter
+in cross_toolchain.defconfig by copying cross_toolchain.defconfig
+into cross_toolchain.config.
+
+#########################################
+##                                     ##
+##           BUILD EXAMPLE             ##
+##                                     ##
+#########################################
+
++---------------------+
+|     For your pc:    |
++---------------------+
+
+1) make examples
+
++----------------------------------------------------+
+| For specific target (like arm) with cross compiler |
++----------------------------------------------------+
+
+1) cp cross_toolchain.defconfig cross_toolchain.config
+
+2) edit cross_toolchain.config with your toolchain parameter
+
+3) ./make_target example
+
+#########################################
+##                                     ##
+##           CLEAN PROJECT             ##
+##                                     ##
+#########################################
+
+Clean lib:
+	make clean
+
+Clean examples
+	make clean_examples
+
+Clean all: ( WARNING: even toolchain config file )
+	make dist_clean
