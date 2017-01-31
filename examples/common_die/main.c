@@ -4,11 +4,10 @@
 #include "log.h"
 
 static int _test_common_die_zero( int value){
-	common_die_zero( value, -1, "Value: %d trigger common die zero", value);
+	common_die_negative( value, -1, "Value: %d trigger common die zero", value);
 	return 0;
 }
 
-//int main( int argc, char ** argv){
 int main( void){
 	int ret;
 	printf( "Start Test common_die\n");
