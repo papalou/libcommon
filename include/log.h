@@ -1,8 +1,11 @@
 #ifndef __LOG__H__
 #define __LOG__H__
 
+#include <stdbool.h>
+
 int libcommon_init_log(void);
 int libcommon_change_log_path( char * full_path);
+int libcommon_set_color_log( bool value);
 
 // --- LOG ---
 //#define write_log(...)
