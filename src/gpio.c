@@ -8,9 +8,7 @@
 #include <string.h>
 #include <errno.h>
 
-#include "common_die.h"
 #include "log.h"
-
 #include "gpio.h"
 
 #define PATH_LENGTH 128

@@ -2,7 +2,6 @@
 #include <stdio.h>
 
 #include "log.h"
-#include "common_die.h"
 
 static int _test_common_die_zero( int value){
 	common_die_zero( value, -1, "Value: %d trigger common die zero", value);

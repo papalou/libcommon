@@ -4,9 +4,7 @@
 #include <stdbool.h>
 #include <unistd.h>
 
-#include "common_die.h"
 #include "log.h"
-
 #include "crc.h"
 
 //See: https://www.pololu.com/docs/0J5/5.f

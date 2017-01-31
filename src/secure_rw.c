@@ -4,7 +4,6 @@
 #include <errno.h>
 #include <unistd.h>
 
-#include "common_die.h"
 #include "log.h"
 #include "secure_rw.h"
 

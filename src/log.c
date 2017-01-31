@@ -12,9 +12,7 @@
 #include <unistd.h>
 #include <sys/syscall.h>
 
-#include "common_die.h"
 #include "log.h"
-
 #include "log.private.h"
 
 #define _GNU_SOURCE
