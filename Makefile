@@ -17,6 +17,9 @@ INCLUDE=-I.                           \
         -Iinclude                     \
         -I$(STAGING)/usr/include
 
+ifndef VERBOSE
+MAKEFLAGS += --no-print-directory
+endif
 CFLAGS=$(PKG_CONFIGS_CFLAGS) -Wall -g -O0 -Wextra -fPIC -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast
 LDFLAGS=$(PKG_CONFIGS_CFLAGS) -shared
 OBJECTS=$(SRC:.c=.o)
