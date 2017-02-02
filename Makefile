@@ -34,11 +34,6 @@ $(LIB):$(OBJECTS)
 	@echo cc $< ...
 	@$(CC) $(INCLUDE) $(CFLAGS) $< -c -o $@
 
-examples:$(LIB)
-	@echo [ Build examples ]
-	@cd examples && $(MAKE)
-
-
 .PHONY:clean
 
 clean:
@@ -51,3 +46,16 @@ clean_examples:
 
 dist_clean:clean clean_examples
 	@rm -f cross_toolchain.config
+
+#
+# Examples Build
+#
+ifdef CROSS_COMPILE
+examples:$(LIB)
+	@echo [ Cross Build examples ]
+	@cd examples && $(MAKE) cross_build
+else
+examples:$(LIB)
+	@echo [ Build examples ]
+	@cd examples && $(MAKE) all
+endif
