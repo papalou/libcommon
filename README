@@ -4,7 +4,16 @@
 ##                                     ##
 #########################################
 
-A simple lib wo provide simple tool like error handling, log,...
+A simple lib some log function (common_die macros) + some others tools.
+
+#########################################
+##                                     ##
+##                  USE                ##
+##                                     ##
+#########################################
+
+Just link the lib to your code ( libcommon.a OR libcommon.so )
+And include the "libcommon/include" folder.
 
 #########################################
 ##                                     ##
@@ -56,7 +65,7 @@ into cross_toolchain.config.
 
 2) edit cross_toolchain.config with your toolchain parameter
 
-3) ./make_target example
+3) ./make_target examples
 
 #########################################
 ##                                     ##
