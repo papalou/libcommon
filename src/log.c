@@ -85,6 +85,7 @@ void _write_log(const char * filename, const char * function, int line, const ch
 	}
 	if(ret >= MAX_LOG_LENGTH){
 		printf("WARNING: Log message is to long for the buffer, size: %d >= MAX_LOG_LENGTH: %d", ret, MAX_LOG_LENGTH);
+		full_log_message[MAX_LOG_LENGTH -1] = '\0';
 	}
 	/*
 	 * Print log on console
