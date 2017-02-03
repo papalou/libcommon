@@ -4,26 +4,25 @@
 
 #include "log.h"
 
-static int _test_common_die_zero( int value){
-	common_die_negative( value, -1, "Value: %d trigger common die zero", value);
-	return 0;
-}
-
 int main( void){
 	int ret;
+	int test_value = -1;
 	printf( "Start Test common_die\n");
 	ret = libcommon_init_log();
+	if( ret  < 0){
+		printf("[%s line:%d]Error libcommon_init_log fail, return: %d\n", __FILE__, __LINE__,ret);
+		return -1;
+	}
 
-	printf("Log without color by default\n");
-	ret = _test_common_die_zero(-1);
-	printf( "Test common die zero return: %d\n", ret);
+	write_log("This is a simple log without color :) ");
 
-	printf("Set log with color\n");
+	//Set color log
 	ret = libcommon_set_color_log( true);
+	common_die_negative( ret, -2, "Error: libcommon_set_color_log fail, return: %d", ret);
 
-	printf( "Try color log\n");
-	ret = _test_common_die_zero(-1);
-	printf( "Test common die zero return: %d\n", ret);
+	write_log("This is a simple log with color _0/ ");
+
+	common_die_negative( test_value, -3, "Test common_die_negative with test_value=%d", test_value);
 
 	return 0;
 }
