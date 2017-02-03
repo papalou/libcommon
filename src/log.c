@@ -41,7 +41,6 @@ void _write_log(const char * filename, const char * function, int line, const ch
 	char tmp_time_string[32];
 	char time_string[32];
 	char log_va_list_buffer[MAX_LOG_LENGTH];
-	char full_log_message[MAX_LOG_LENGTH];
 
 	if(g_libcommon_log.is_initialized == false){
 		printf("%s: %s():l%d: WARNING, try to use log uninitialized, initialized with default value...\n",__FILE__,__FUNCTION__,__LINE__);
@@ -78,33 +77,28 @@ void _write_log(const char * filename, const char * function, int line, const ch
 		printf( "Error snprintf return %d\n", ret);
 	}
 
-	if( g_libcommon_log.use_color == true ){
-		ret = snprintf( full_log_message, MAX_LOG_LENGTH, "%s "GREEN" %-13s [%d:%d]"NORMAL" ["BLACKBOLD"%s:%d:%s"NORMAL"] "REDBOLD"%s"NORMAL"\n", time_string, program_invocation_short_name, getpid(),(int)syscall( SYS_gettid), filename, line, function, log_va_list_buffer);
-	}else{
-		ret = snprintf( full_log_message, MAX_LOG_LENGTH, "%s %-13s [%d:%d] [%s:%d:%s] %s\n", time_string, program_invocation_short_name,getpid(),(int)syscall( SYS_gettid), filename, line, function, log_va_list_buffer);
-	}
-	if(ret >= MAX_LOG_LENGTH){
-		printf("WARNING: Log message is to long for the buffer, size: %d >= MAX_LOG_LENGTH: %d", ret, MAX_LOG_LENGTH);
-		full_log_message[MAX_LOG_LENGTH -1] = '\0';
-	}
 	/*
 	 * Print log on console
 	 */
-	printf("%s", full_log_message);
+	if( g_libcommon_log.use_color == true ){
+		printf( "%s "GREEN" %-13s [%d:%d]"NORMAL" ["BLACKBOLD"%s:%d:%s"NORMAL"] "REDBOLD"%s"NORMAL"\n", time_string, program_invocation_short_name, getpid(),(int)syscall( SYS_gettid), filename, line, function, log_va_list_buffer);
+	}else{
+		printf( "%s %-13s [%d:%d] [%s:%d:%s] %s\n", time_string, program_invocation_short_name,getpid(),(int)syscall( SYS_gettid), filename, line, function, log_va_list_buffer);
+	}
 
 	/*
 	 * Write log in file
 	 */
 	pthread_mutex_lock(&g_libcommon_log.mutex);
 
-	log_file_fd = fopen( g_libcommon_log.log_path, "a");
+	log_file_fd = fopen( g_libcommon_log.log_path, "a+");
 	if(log_file_fd == NULL){
 		printf("Error: fopen log file '%s' fail, error: %s ", g_libcommon_log.log_path, strerror(errno));
 		pthread_mutex_unlock(&g_libcommon_log.mutex);
 		return;
 	}
 
-	fwrite(full_log_message, sizeof(char), strlen(full_log_message), log_file_fd);
+	fprintf( log_file_fd, "%s %-13s [%d:%d] [%s:%d:%s] %s\n", time_string, program_invocation_short_name,getpid(),(int)syscall( SYS_gettid), filename, line, function, log_va_list_buffer);
 
 	fclose(log_file_fd);
 
