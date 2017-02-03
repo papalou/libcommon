@@ -22,12 +22,12 @@ static int _open_and_write( char * path, char * data){
 	common_die_null( data, -2, "Error data is null");
 
 	fd = open( path, O_WRONLY);
-	common_die_zero( fd, -3, "Error: open %s fail, return: %d, errno: %d (%s)", path, fd, errno, strerror(errno));
+	common_die_negative( fd, -3, "Error: open %s fail, return: %d, errno: %d (%s)", path, fd, errno, strerror(errno));
 
 	ret = write( fd, data, sizeof(data));
 	if(ret < 0){
 		close(fd);
-		common_die_zero(ret, -4, "Error: write fail, return: %d, errno: %d (%s)", path, ret, errno, strerror(errno));
+		common_die_negative(ret, -4, "Error: write fail, return: %d, errno: %d (%s)", path, ret, errno, strerror(errno));
 	}
 	close(fd);
 
@@ -46,7 +46,7 @@ static int _export_gpio( uint16_t number){
 	common_die_superior_or_equal(ret, PATH_LENGTH, -3, "Error: snprintf fail, can be trancated");
 
 	ret = _open_and_write( path, data);
-	common_die_zero(ret, -4, "Error: _open_and_write fail, return: %d");
+	common_die_negative(ret, -4, "Error: _open_and_write fail, return: %d");
 
 	return 0;
 }
@@ -63,7 +63,7 @@ static int _unexport_gpio( uint16_t number){
 	common_die_superior_or_equal(ret, PATH_LENGTH, -4, "Error: snprintf fail, can be trancated");
 
 	ret = _open_and_write( path, data);
-	common_die_zero(ret, -5, "Error: _open_and_write fail, return: %d");
+	common_die_negative(ret, -5, "Error: _open_and_write fail, return: %d");
 
 	return 0;
 }
@@ -91,7 +91,7 @@ static int _set_direction( uint16_t number, E_gpio_direction direction){
 	}
 
 	ret = _open_and_write( path, data);
-	common_die_zero(ret, -9, "Error: _open_and_write fail, return: %d");
+	common_die_negative(ret, -9, "Error: _open_and_write fail, return: %d");
 	return 0;
 }
 
@@ -103,12 +103,12 @@ int gpio_init(T_gpio * gpio, uint16_t number, E_gpio_direction direction, uint8_
 
 	//Export GPIO
 	ret = _export_gpio(number);
-	common_die_zero(ret, -2, "Error: export gpio fail, return: %d", ret);
+	common_die_negative(ret, -2, "Error: export gpio fail, return: %d", ret);
 	gpio->number = number;
 
 	//Set Direction
 	ret = _set_direction(number, direction);
-	common_die_zero(ret, -3, "Error: set gpio direction fail, return: %d", ret);
+	common_die_negative(ret, -3, "Error: set gpio direction fail, return: %d", ret);
 	gpio->direction = direction;
 
 	//Set Value
@@ -116,14 +116,14 @@ int gpio_init(T_gpio * gpio, uint16_t number, E_gpio_direction direction, uint8_
 	common_die_superior_or_equal(ret, PATH_LENGTH, -4, "Error: snprintf fail, can be trancated");
 
 	gpio->fd = open( path, O_WRONLY);
-	common_die_zero( gpio->fd, -5, "Error: open %s fail, return: %d, errno: %d (%s)", path, gpio->fd, errno, strerror(errno));
+	common_die_negative( gpio->fd, -5, "Error: open %s fail, return: %d, errno: %d (%s)", path, gpio->fd, errno, strerror(errno));
 
 	if(value == 0){
 		ret = write( gpio->fd, "0", 1);
-		common_die_zero( ret, -5, "Error: write gpio%d value fail, return: %d", number, ret);
+		common_die_negative( ret, -5, "Error: write gpio%d value fail, return: %d", number, ret);
 	}else{
 		ret = write( gpio->fd, "1", 1);
-		common_die_zero( ret, -6, "Error: write gpio%d value fail, return: %d", number, ret);
+		common_die_negative( ret, -6, "Error: write gpio%d value fail, return: %d", number, ret);
 	}
 
 	lseek(gpio->fd, 0, SEEK_SET);
@@ -143,7 +143,7 @@ int gpio_release(T_gpio * gpio){
 	}
 
 	ret = _unexport_gpio(gpio->number);
-	common_die_zero( ret, -3, "Error: unexport gpio%d fail, return: %d", gpio->number, ret);
+	common_die_negative( ret, -3, "Error: unexport gpio%d fail, return: %d", gpio->number, ret);
 
 	//Close file descriptor on gpio value
 	close( gpio->fd);
@@ -166,7 +166,7 @@ int gpio_get_value(T_gpio * gpio){
 
 	//Get Value
 	ret = read( gpio->fd, &value, sizeof(value));
-	common_die_zero(ret, -4, "Error: read fail, return: %d, errno: %d (%s)", path, ret, errno, strerror(errno));
+	common_die_negative(ret, -4, "Error: read fail, return: %d, errno: %d (%s)", path, ret, errno, strerror(errno));
 
 	lseek(gpio->fd, 0, SEEK_SET);
 
@@ -190,10 +190,10 @@ int gpio_set_value(T_gpio * gpio, uint8_t value){
 	//Set Value
 	if(value == 0){
 		ret = write( gpio->fd, "0", 1);
-		common_die_zero( ret, -5, "Error: write gpio%d value fail, return: %d", gpio->number, ret);
+		common_die_negative( ret, -5, "Error: write gpio%d value fail, return: %d", gpio->number, ret);
 	}else{
 		ret = write( gpio->fd, "1", 1);
-		common_die_zero( ret, -6, "Error: write gpio%d value fail, return: %d", gpio->number, ret);
+		common_die_negative( ret, -6, "Error: write gpio%d value fail, return: %d", gpio->number, ret);
 	}
 
 	lseek(gpio->fd, 0, SEEK_SET);
