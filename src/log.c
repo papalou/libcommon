@@ -103,7 +103,7 @@ void _write_log(const char * filename, const char * function, int line, const ch
 		return;
 	}
 
-	ret = fwrite(full_log_message, sizeof(char), sizeof(full_log_message), log_file_fd);
+	fwrite(full_log_message, sizeof(char), strlen(full_log_message), log_file_fd);
 
 	fclose(log_file_fd);
 
