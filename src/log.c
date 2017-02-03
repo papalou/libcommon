@@ -35,12 +35,12 @@ void _write_log(const char * filename, const char * function, int line, const ch
 	int ret;
 	struct timeval tv;
 	struct tm * ptm;
-	char tmp_time_string[64];
-	char time_string[64];
 	va_list args;
 	FILE * log_file_fd;
-	char log_va_list_buffer[MAX_LOG_LENGTH];
 
+	char tmp_time_string[32];
+	char time_string[32];
+	char log_va_list_buffer[MAX_LOG_LENGTH];
 	char full_log_message[MAX_LOG_LENGTH];
 
 	if(g_libcommon_log.is_initialized == false){
@@ -79,7 +79,7 @@ void _write_log(const char * filename, const char * function, int line, const ch
 	}
 
 	if( g_libcommon_log.use_color == true ){
-		ret = snprintf( full_log_message, MAX_LOG_LENGTH, " %s "GREEN" %-13s [%d:%d]"NORMAL" ["BLACKBOLD"%s:%d:%s"NORMAL"] "REDBOLD"%s"NORMAL"\n", time_string, program_invocation_short_name, getpid(),(int)syscall( SYS_gettid), filename, line, function, log_va_list_buffer);
+		ret = snprintf( full_log_message, MAX_LOG_LENGTH, "%s "GREEN" %-13s [%d:%d]"NORMAL" ["BLACKBOLD"%s:%d:%s"NORMAL"] "REDBOLD"%s"NORMAL"\n", time_string, program_invocation_short_name, getpid(),(int)syscall( SYS_gettid), filename, line, function, log_va_list_buffer);
 	}else{
 		ret = snprintf( full_log_message, MAX_LOG_LENGTH, "%s %-13s [%d:%d] [%s:%d:%s] %s\n", time_string, program_invocation_short_name,getpid(),(int)syscall( SYS_gettid), filename, line, function, log_va_list_buffer);
 	}
