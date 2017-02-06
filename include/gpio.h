@@ -1,10 +1,6 @@
 #ifndef __GPIO_H__
 #define __GPIO_H__
 
-#define GPIO_FOLDER "/sys/class/gpio"
-#define GPIO_EXPORT_BINARY "export"
-#define GPIO_UNEXPORT_BINARY "unexport"
-
 typedef enum{
 	E_GPIO_DIRECTION_OUT = 0,
 	E_GPIO_DIRECTION_IN,

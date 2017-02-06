@@ -11,6 +11,8 @@
 #include "log.h"
 #include "gpio.h"
 
+#include "gpio.private.h"
+
 #define PATH_LENGTH 128
 #define DATA_LENGTH 16
 
