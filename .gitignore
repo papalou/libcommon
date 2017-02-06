@@ -3,6 +3,7 @@
 *.so
 *.o
 *.swp
+*.bin
 
 #Specific file to ignore
 cross_toolchain.config
