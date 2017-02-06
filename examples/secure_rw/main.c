@@ -43,7 +43,7 @@ int main( void){
 	common_die_negative(ret, -3, "Error: secure_write fail, return: %d", ret);
 
 	//Move the file offset to the start of the file
-	ret = lseek( fd, SEEK_SET, 0);
+	ret = lseek( fd, 0, SEEK_SET);
 	common_die_negative( ret, -4, "Error: lseek fail, return: %d, errno: %d (%s)", ret, errno, strerror(errno));
 
 	ret = secure_read( fd, data_read, sizeof(data_read));
