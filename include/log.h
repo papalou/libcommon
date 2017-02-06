@@ -41,19 +41,104 @@ void _write_log(const char * filename, const char * function, int line, const ch
 //#                                       #
 //#########################################
 
+// Write simple log
 #define write_log(...)                                                        \
 	do {                                                                      \
 		_write_log(__FILE__, __FUNCTION__, __LINE__, __VA_ARGS__);            \
 	} while(0)
 
-#define write_log_zero(value_to_check, ...)                                   \
+/*
+ * WRITE LOG IF THE VALUE IS EXPECTED
+ */
+
+//Write log if value_to_check is 'Negative' OR 'zero'
+#define write_log_negative_or_zero(value_to_check, ...)                       \
+	if(value_to_check <= 0){                                                  \
+		write_log(__VA_ARGS__);                                               \
+	}
+
+//Write log if value_to_check is stricly 'Negative'
+#define write_log_negative(value_to_check, ...)                               \
 	if(value_to_check < 0){                                                   \
 		write_log(__VA_ARGS__);                                               \
 	}
 
+//Write log if value_to_check is stricly 'Zero'
+#define write_log_zero(value_to_check, ...)                                   \
+	if(value_to_check == 0){                                                  \
+		write_log(__VA_ARGS__);                                               \
+	}
+
+//Write log if value_to_check is stricly 'Positive'
+#define write_log_positive(value_to_check, ...)                               \
+	if(value_to_check > 0){                                                   \
+		write_log(__VA_ARGS__);                                               \
+	}
+
+//Write log if value_to_check is 'Positive' OR 'Zero'
+#define write_log_positive_or_zero(value_to_check, ...)                       \
+	if(value_to_check >= 0){                                                  \
+		write_log(__VA_ARGS__);                                               \
+	}
+
+//Write log if value_to_check is 'NULL'
 #define write_log_null(value_to_check, ...)                                   \
 	if(value_to_check == NULL){                                               \
 		write_log(__VA_ARGS__);                                               \
+	}
+
+//Write log if value_to_check is 'NOT NULL'
+#define write_log_not_null(value_to_check, ...)                               \
+	if(value_to_check != NULL){                                               \
+		write_log(__VA_ARGS__);                                               \
+	}
+
+//Write log if value_to_check is 'TRUE'
+#define write_log_true(value_to_check, ...)                                   \
+	if(value_to_check == true){                                               \
+		write_log(__VA_ARGS__);                                               \
+	}
+
+//Write log if value_to_check is 'FALSE'
+#define write_log_false(value_to_check, ...)                                  \
+	if(value_to_check == false){                                              \
+		write_log(__VA_ARGS__);                                               \
+	}
+
+//Write log if value_to_check_1 and value_to_check_2 are 'EQUAL'
+#define write_log_equal(value_to_check_1, value_to_check_2, ...)                   \
+	if(value_to_check_1 == value_to_check_2){                                      \
+		write_log(__VA_ARGS__);                                                    \
+	}
+
+//Write log if value_to_check_1 and value_to_check_2 are 'NOT EQUAL'
+#define write_log_not_equal(value_to_check_1, value_to_check_2, ...)               \
+	if(value_to_check_1 != value_to_check_2){                                      \
+		write_log(__VA_ARGS__);                                                    \
+	}
+
+//Write log if value_to_check_1 is 'SUPERIOR TO' value_to_check_2
+#define write_log_superior(value_to_check_1, value_to_check_2, ...)                \
+	if(value_to_check_1 > value_to_check_2){                                       \
+		write_log(__VA_ARGS__);                                                    \
+	}
+
+//Write log if value_to_check_1 is 'INFERIOR TO' value_to_check_2
+#define write_log_inferior(value_to_check_1, value_to_check_2, ...)                \
+	if(value_to_check_1 < value_to_check_2){                                       \
+		write_log(__VA_ARGS__);                                                    \
+	}
+
+//Write log if value_to_check_1 is 'SUPERIOR OR EQUAL TO' value_to_check_2
+#define write_log_superior_or_equal(value_to_check_1, value_to_check_2, ...)               \
+	if(value_to_check_1 >= value_to_check_2){                                              \
+		write_log(__VA_ARGS__);                                                            \
+	}
+
+//Write log if value_to_check_1 is 'INFERIOR OR EQUAL TO' value_to_check_2
+#define write_log_inferior_or_equal(value_to_check_1, value_to_check_2, ...)               \
+	if(value_to_check_1 <= value_to_check_2){                                              \
+		write_log(__VA_ARGS__);                                                            \
 	}
 
 
