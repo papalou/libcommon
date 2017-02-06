@@ -1,4 +1,4 @@
-BIN=test_common_die
+BIN=example_common_die.bin
 
 SRC=main.c
 
