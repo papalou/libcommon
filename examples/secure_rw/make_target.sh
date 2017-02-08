@@ -21,7 +21,7 @@ sysroot="../../${sysroot}"
 export TOOLCHAIN_PATH=${toolchain_path}
 export TOOLCHAIN_PRFIX=${toolchain_prefix}
 
-export LD_LIBRARY_PATH=$TOOLCHAIN_PATH/usr/lib
-export PATH=$TOOLCHAIN_PATH/usr/bin:$PATH
+export LD_LIBRARY_PATH=$TOOLCHAIN_PATH/lib
+export PATH=$TOOLCHAIN_PATH/bin:$PATH
 
 make ARCH=$arch CROSS_COMPILE=$TOOLCHAIN_PRFIX SYSROOT=${sysroot} $1
