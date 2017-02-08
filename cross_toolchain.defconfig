@@ -3,5 +3,5 @@
 
 ARCH="arm"
 TOOLCHAIN_PATH="../toolchain/"
-TOOLCHAIN_PRFIX="arm-buildroot-linux-uclibcgnueabihf-"
+TOOLCHAIN_PRFIX="arm-linux-gnueabihf-"
 SYSROOT="../buildroot/output/host/"
