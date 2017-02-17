@@ -9,16 +9,29 @@ int libcommon_set_color_log( bool value);
 
 // --- LOG ---
 //#define write_log(...)
+//#define write_log_negative_or_zero(value_to_check, ...)
+//#define write_log_negative(value_to_check, ...)
 //#define write_log_zero(value_to_check, ...)
+//#define write_log_not_zero(value_to_check, ...)
+//#define write_log_positive(value_to_check, ...)
+//#define write_log_positive_or_zero(value_to_check, ...)
 //#define write_log_null(value_to_check, ...)
-//#define write_log_snprintf(value_to_check, text_length, ...)
-//#define write_log_pthread(value_to_check, ...)
+//#define write_log_not_null(value_to_check, ...)
+//#define write_log_true(value_to_check, ...)
+//#define write_log_false(value_to_check, ...)
+//#define write_log_equal(value_to_check_1, value_to_check_2, ...)
+//#define write_log_not_equal(value_to_check_1, value_to_check_2, ...)
+//#define write_log_superior(value_to_check_1, value_to_check_2, ...)
+//#define write_log_inferior(value_to_check_1, value_to_check_2, ...)
+//#define write_log_superior_or_equal(value_to_check_1, value_to_check_2, ...)
+//#define write_log_inferior_or_equal(value_to_check_1, value_to_check_2, ...)
 
 // --- Common die ---
 //#define common_die(return_value, ...)
 //#define common_die_negative_or_zero(value_to_check, return_value, ...)
 //#define common_die_negative(value_to_check, return_value, ...)
 //#define common_die_zero(value_to_check, return_value, ...)
+//#define common_die_not_zero(value_to_check, return_value, ...)
 //#define common_die_positive(value_to_check, return_value, ...)
 //#define common_die_positive_or_zero(value_to_check, return_value, ...)
 //#define common_die_null(value_to_check, return_value, ...)
@@ -66,6 +79,12 @@ void _write_log(const char * filename, const char * function, int line, const ch
 //Write log if value_to_check is stricly 'Zero'
 #define write_log_zero(value_to_check, ...)                                   \
 	if(value_to_check == 0){                                                  \
+		write_log(__VA_ARGS__);                                               \
+	}
+
+//Write log if value_to_check is different from 'Zero'
+#define write_log_not_zero(value_to_check, ...)                               \
+	if(value_to_check != 0){                                                  \
 		write_log(__VA_ARGS__);                                               \
 	}
 
@@ -175,6 +194,13 @@ void _write_log(const char * filename, const char * function, int line, const ch
 //Die if value_to_check is stricly 'Zero'
 #define common_die_zero(value_to_check, return_value, ...)                    \
 	if(value_to_check == 0){                                                  \
+		write_log(__VA_ARGS__);                                               \
+		return return_value;                                                  \
+	}
+
+//Die if value_to_check is stricly different from 'Zero'
+#define common_die_not_zero(value_to_check, return_value, ...)                \
+	if(value_to_check != 0){                                                  \
 		write_log(__VA_ARGS__);                                               \
 		return return_value;                                                  \
 	}
