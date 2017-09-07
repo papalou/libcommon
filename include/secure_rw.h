@@ -12,3 +12,5 @@ int secure_write(int fd, void * buf, size_t count);
 #ifdef __cplusplus
 }
 #endif
+
+#endif //__SECURE_RW_H__

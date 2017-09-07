@@ -39,3 +39,5 @@ int gpio_set_value(T_gpio * gpio, uint8_t value);
 #ifdef __cplusplus
 }
 #endif
+
+#endif //__GPIO_H__

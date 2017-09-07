@@ -12,3 +12,5 @@ uint8_t crc_compute_crc8(void * message, uint32_t length);
 #ifdef __cplusplus
 }
 #endif
+
+#endif //__CRC_H__

@@ -298,3 +298,5 @@ void _write_log(const char * filename, const char * function, int line, const ch
 #ifdef __cplusplus
 }
 #endif
+
+#endif //__LOG__H__
