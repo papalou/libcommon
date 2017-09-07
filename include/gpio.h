@@ -1,6 +1,11 @@
 #ifndef __GPIO_H__
 #define __GPIO_H__
 
+//Needed to use this header file with C++ source code
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef enum{
 	E_GPIO_DIRECTION_OUT = 0,
 	E_GPIO_DIRECTION_IN,
@@ -31,5 +36,6 @@ int gpio_release(T_gpio * gpio);
 int gpio_get_value(T_gpio * gpio);
 int gpio_set_value(T_gpio * gpio, uint8_t value);
 
-
+#ifdef __cplusplus
+}
 #endif

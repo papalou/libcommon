@@ -1,6 +1,11 @@
 #ifndef __LOG__H__
 #define __LOG__H__
 
+//Needed to use this header file with C++ source code
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdbool.h>
 
 int libcommon_init_log(void);
@@ -289,4 +294,7 @@ void _write_log(const char * filename, const char * function, int line, const ch
 		return return_value;                                                               \
 	}
 
+
+#ifdef __cplusplus
+}
 #endif
